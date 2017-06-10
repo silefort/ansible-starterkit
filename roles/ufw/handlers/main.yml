@@ -1,0 +1,6 @@
+---
+- name: restart ufw service
+  service:
+    name: ufw
+    state: restarted
+    enabled: yes
