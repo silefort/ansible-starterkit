@@ -1,5 +1,14 @@
 # Ansible Starter Kit
 
+## Bootstrap a new server
+
+* Fill the `hosts` file 'newservers' group with your new server infos
+* Run the bootstrap playbook
+
+    ANSIBLE_HOST_KEY_CHECKING=false; ansible-playbook -i hosts playbooks/bootstrap.yml --sudo --ask-pass
+
+## References
+
 This repository is aimed at starting fast and effective with ansible.
 
 * Fill the `hosts` file with you groups and hosts.
@@ -11,9 +20,6 @@ taken into account by all ansible commands.
 ready to operate.
 * Run `ansible-galaxy install -fr ansible-requirements.yml` to install additional roles.
 
-
-# References
-
 Here are some project that will give you examples of advanced usages of Ansible:
 
 * [DebOps project](https://github.com/debops)
@@ -22,5 +28,3 @@ Here are some project that will give you examples of advanced usages of Ansible:
 Some slidedecks to enlight you:
 
 * [FR - Ansible hors des sentiers battus](https://speakerdeck.com/aurelienmaury/ansible-hors-des-sentiers-battus)
-
-Have fun. Hack in peace.
