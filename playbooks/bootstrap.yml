@@ -5,8 +5,9 @@
 - hosts: newservers
 
   vars_prompt:
-    - name: 'deploy_password'
-      prompt: 'Enter the deploy user password'
+    # You may need to install passlib for this to work (pip install passlib)
+    - name: 'deploy_hashed_password'
+      prompt: "Enter the deploy hashed user password (python -c \"from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())\""
       private: yes
 
   tasks:
@@ -14,7 +15,7 @@
   - name: Add deployment user
     user: 
       name: deploy 
-      password: '{{ deploy_password }}'
+      password: '{{ deploy_hashed_password }}'
 
   - name: Add authorized deploy key
     authorized_key: 

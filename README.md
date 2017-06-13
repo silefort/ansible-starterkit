@@ -1,20 +1,24 @@
 # Ansible Starter Kit
 
 ## Prepare Starter-Kit
-* Fill the `hosts` file with you groups and hosts.
+* Fill the `inventory/hosts` file with you groups and hosts.
 * Modify the `ssh.cfg` config file to fit your needs.
 * Add you 'deploy' ssh key to keys directory
 * Operate from the project root so that `ansible.cfg` and `ssh.cfg` are 
 taken into account by all ansible commands.
-* Run `ansible all -m ping`: if you get `pong` response from all hosts, you are
+* Run `ansible -i inventory/hosts all -m ping`: if you get `pong` response from all hosts, you are
 ready to operate.
 
 ## Bootstrap a new server
+* Fill the newservers group of the `inventory/hosts_to_bootstrap` file
+* Run the bootstrap playbook ( you might need to add ask-pass if ssh password is needed)
 
-* Fill the `hosts` file 'newservers' group with your new server infos
-* Run the bootstrap playbook
+        ansible-playbook -i inventory/hosts_to_bootstrap playbooks/bootstrap.yml --become
 
-    ANSIBLE_HOST_KEY_CHECKING=false; ansible-playbook -i hosts playbooks/bootstrap.yml --sudo --ask-pass
+## Run a playbook
+
+        ansible-playbook -i inventory/hosts playbooks/apply_common.yml --ask-become-pass
+
 
 ## References
 
