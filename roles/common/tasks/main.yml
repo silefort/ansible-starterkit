@@ -19,9 +19,9 @@
     - "deb-src http://cloudfront.debian.net/debian {{ ansible_distribution_release }}-backports main"
 
 - name: common packages are installed
-  apt:
-    pkg: "{{ item }}"
-    state: present
+  package:
+    name : "{{ item }}"
+    state: latest
   with_items:
     - "sudo"
     - "curl"
