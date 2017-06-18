@@ -1,7 +1,9 @@
 ---
-- name: Update and upgrade apt packages
+- name: apt-get update
   apt:
-    upgrade: yes
     update_cache: yes
-    cache_valid_time: 86400 #One day
-  become: true
+    cache_valid_time: 86400
+
+- name: apt-get upgrade
+  apt:
+    upgrade: dist
