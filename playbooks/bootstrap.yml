@@ -6,11 +6,23 @@
 
   vars_prompt:
     # You may need to install passlib for this to work (pip install passlib)
+    - name: 'root_hashed_password'
+      prompt: "Enter the root hashed user password (python -c \"from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())\""
+      private: yes
+
+    # You may need to install passlib for this to work (pip install passlib)
     - name: 'deploy_hashed_password'
       prompt: "Enter the deploy hashed user password (python -c \"from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())\""
       private: yes
 
   tasks:
+
+  - name: install sudo command
+    apt:
+      pkg: "{{ item }}"
+      state: present
+    with_items:
+      - "sudo"
 
   - name: Add deployment user
     user: 
@@ -52,6 +64,11 @@
       line: "PasswordAuthentication no"
       state: present
     notify: Restart sshd
+
+  - name: Change root password
+    user:
+      name: root
+      password: '{{ root_hashed_password }}'
 
   handlers:
     - name: Restart sshd
