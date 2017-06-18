@@ -1,19 +1,15 @@
 ---
-- name: common alias
-  copy:
-    dest: "/etc/profile.d/ll.sh"
-    content: "alias ll=\"ls --color -aul\"\n"
-    owner: "root"
-    group: "root"
-    mode: "0644"
+# Update and upgrade apt packages
+- include: update.yml
 
-- name: /bin/sh is /bin/bash
+- name: make bash the shell
   file:
     src: "/bin/bash"
     dest: "/bin/sh"
     state: link
 
 - name: backports repositories are actives
+# Backports are packages taken from the next Debian release (called "testing"), adjusted and recompiled for usage on Debian stable
   apt_repository:
     repo: "{{ item }}"
     state: present
@@ -27,43 +23,19 @@
     pkg: "{{ item }}"
     state: present
   with_items:
-    - "mosh"
     - "sudo"
     - "curl"
-    - "locales"
     - "git"
-    - "subversion"
-    - "whois"
-    - "wget"
-    - "strace"
-    - "sysstat"
-    - "iotop"
-    - "iperf"
-    - "lsof"
-    - "dnsutils"
-    - "ngrep"
-    - "htop"
-    - "netcat"
-    - "multitail"
-    - "tmux"
-    - "tree"
-    - "ncdu"
-    - "net-tools"
-    - "procps"
-    - "vim"
-    - "jq"
-    - "htop"
-    - "rsyslog"
-    - "logrotate"
-    - "unattended-upgrades"
-    - "build-essential"
-    - "zlib1g-dev"
-    - "zlib1g"
-    - "libcurl4-openssl-dev"
 
-- include: ntp.yml
-- include: locale.yml
-- include: ssh.yml
-- include: logs.yml
+# -- meta: flush_handlers
+# Understand what it does
+# - include: ntp.yml
 
-- meta: flush_handlers
+# Understand what it does
+# - include: locale.yml
+
+# Understand what it does
+# - include: ssh.yml
+
+# Understand what it does
+# - include: logs.yml
