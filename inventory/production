@@ -2,5 +2,5 @@
 # Put here your managed hosts, organized by groups
 
 [kimsufi]
-vagrant_kimsufi ansible_port=2222 ansible_host=127.0.0.1 
+kimsufi ansible_port=22 ansible_host=178.32.220.169
 

@@ -2,4 +2,4 @@
 # Put here your managed hosts, organized by groups
 [newservers]
 vagrant_kimsufi ansible_port=2222 ansible_host=127.0.0.1 ansible_user='vagrant' ansible_ssh_private_key_file='/Users/slefort/Vagrant/Kimusfi/.vagrant/machines/default/virtualbox/private_key'
-
+kimsufi ansible_host=178.32.220.169 ansible_user='root'

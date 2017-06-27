@@ -2,7 +2,7 @@
 ####################################
 # Setup ssh deploy user from scratch
 ####################################
-- hosts: newservers
+- hosts: all
 
   vars_prompt:
     # You may need to install passlib for this to work (pip install passlib)
@@ -33,7 +33,10 @@
     authorized_key: 
       user: deploy
       state: present
-      key: "{{ lookup('file', '{{ playbook_dir }}/../keys/id_rsa_mbp_p.pub') }}"
+      key: "{{ item }}"
+    with_file:
+      - ../keys/id_rsa_mbp_p.pub
+      - ../keys/id_rsa_mbp_pro.pub
 
   - name: Remove sudo group rights
     lineinfile: 
@@ -65,10 +68,10 @@
       state: present
     notify: Restart sshd
 
-  - name: Change root password
-    user:
-      name: root
-      password: '{{ root_hashed_password }}'
+  #- name: Change root password
+    #user:
+      #name: root
+      #password: '{{ root_hashed_password }}'
 
   handlers:
     - name: Restart sshd
